@@ -1,20 +1,39 @@
 <?php
 
-// ini_set("dispaly_errors", 1);
+ini_set("display_errors", 1);
+
+require_once "function.php";
 
 
-// $filename = "images";
-// $data = file_get_contents($filename);
+$filename = '../images';
+$dir = scandir($filename);
 
 
-// $databas = [];
+$alternativesOfDogs = [];
+
+//Chek for the right answere and add to newdog
+for ($i=0; $i < 4 ; $i++) { 
+    $randomDog = rand(2, count($dir));
+    $newDog = [
+        "name" => $dir[$randomDog],
+    ];
+    $alternativesOfDogs[] = $newDog;
+}
 
 
-// foreach ($data as $dog) {
-//     $databas[] = [
-//         "image" => $dog,
-//         "alternatives" => "",
+$randomDogFromArray = array_rand($alternativesOfDogs);
+$rightanswere = "images/" . $alternativesOfDogs[$randomDogFromArray]["name"];
 
-//     ];
-// }
+//Fix the name in the alternatives
+$alt = [
+    "image" => $rightanswere,
+    "alternatives" => $alternativesOfDogs,
+];
+
+
+$dogs = json_encode($alt);
+sendJSON($alt);
+
+
+
 ?>

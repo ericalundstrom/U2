@@ -31,16 +31,18 @@ if ($method == "POST") {
 
     $username = $requestDATA["username"];
     $password = $requestDATA["password"];
-    // $pointsfromjson = $requestDATA["points"];
+
 
     foreach($users as $user){
 
         if ($user["username"] == $username && $user["password"] == $password) {
 
+            $points = $user["points"];
+
             $loggedInUser = [
                 "username" => $username,
                 "password" => $password,
-                // "points" => $points,
+                "points" => $points,
             ];
 
             $users[] = $loggedInUser;
