@@ -7,11 +7,16 @@
     {
         "username": "hej",
         "password": "hej",
-        "points": 0
+        "points": 3
     },
     {
         "username": "redbull",
         "password": "lo",
         "points": 0
+    },
+    {
+        "username": "lolo",
+        "password": "lolo",
+        "points": 11
     }
 ]

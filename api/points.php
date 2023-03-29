@@ -14,14 +14,13 @@ $requestDATA = json_decode($requestJSON, true);
 $json = file_get_contents($filename);
 $databaseOfUsers = json_decode($json, true);
 
-    
 
 if ($method == "POST") {
         
     $username = $requestDATA["username"];
     $password = $requestDATA["password"];
 
-    for($i = 0; $i < count($databaseOfUsers); $i){
+    for($i = 0; $i < count($databaseOfUsers); $i++){
 
         if ($databaseOfUsers[$i]["username"] == $username) {
             $databaseOfUsers[$i]["points"] = $databaseOfUsers[$i]["points"] + $requestDATA["points"];
@@ -31,7 +30,22 @@ if ($method == "POST") {
         }
     }
 }
+
+if ($method == "GET") {
+
+    $highestScore = [];
+    foreach($databaseOfUsers as $user){
+        $usernameAndPassword = [
+            "username" => $user["username"],
+            "points" => $user["points"],
+        ];
+        $highestScore[] = $usernameAndPassword;
+    };
+
+    sort($highestScore);
+    sendJSON($highestScore);
+}
+    
 $error = ["error" => "Can't load points"];
 sendJSON($error, 400);
-
 ?>
