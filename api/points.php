@@ -4,33 +4,34 @@ ini_set("dispaly_errors", 1);
 
 require_once "function.php";
 
-$filename = "points.json";
-$data = ["points" => 0];
-
-if (!file_exists($filename)) {
-    $json = json_encode($data);
-    file_put_contents($filename, $json);
-}else{
-    $json = file_get_contents($filename);
-    $data = json_decode($json, true);
-}
 
 $method = $_SERVER["REQUEST_METHOD"];
+$filename = "users.json";
+
+$requestJSON = file_get_contents("php://input");
+$requestDATA = json_decode($requestJSON, true);
+
+$json = file_get_contents($filename);
+$databaseOfUsers = json_decode($json, true);
+
+    
 
 if ($method == "POST") {
+        
+    $username = $requestDATA["username"];
+    $password = $requestDATA["password"];
 
-    if (isset($_POST["points"])) {
+    for($i = 0; $i < count($databaseOfUsers); $i){
 
-        $points = $_POST["points"];
-        $data["points"] += $points;
-
+        if ($databaseOfUsers[$i]["username"] == $username) {
+            $databaseOfUsers[$i]["points"] = $databaseOfUsers[$i]["points"] + $requestDATA["points"];
+            $newpoints = 
+            file_put_contents($filename, json_encode($databaseOfUsers, JSON_PRETTY_PRINT));
+            sendJSON(["points" => $databaseOfUsers[$i]["points"]]);
+        }
     }
-    
-    file_put_contents($filename, $data);
-    sendJSON($data);
 }
 $error = ["error" => "Can't load points"];
 sendJSON($error, 400);
-
 
 ?>

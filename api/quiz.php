@@ -1,39 +1,71 @@
-<?php
-
+<?php 
 ini_set("display_errors", 1);
+require_once("function.php");
+?>
 
-require_once "function.php";
+<?php 
 
-
-$filename = '../images';
+$filename = '../images/';
 $dir = scandir($filename);
+$dogs_json = "dogs.json";
 
-
-$alternativesOfDogs = [];
-
-//Chek for the right answere and add to newdog
-for ($i=0; $i < 4 ; $i++) { 
-    $randomDog = rand(2, count($dir));
-    $newDog = [
-        "name" => $dir[$randomDog],
+$array_of_all_the_dogs = [];
+foreach($dir as $dog){
+    $dogsname = $dog;
+    $replace_words = [ "_", ".jpg"];
+    $newName = str_replace($replace_words, " ", $dogsname);
+    $newdoggo = [
+        "name" => trim($newName),
+        "url" => $dog,
     ];
-    $alternativesOfDogs[] = $newDog;
+    $array_of_all_the_dogs[] = $newdoggo;
+}
+$data = json_encode($array_of_all_the_dogs, JSON_PRETTY_PRINT);
+file_put_contents($dogs_json, $data);
+
+array_splice($array_of_all_the_dogs, 0, 2);
+
+$alternatives = [];
+
+$i = 0;
+while (count($alternatives) < 4) {
+        
+    $random = array_rand($array_of_all_the_dogs, 1);
+    $new_dog = [
+        "name" => $array_of_all_the_dogs[$random]["name"],
+        "url" => $array_of_all_the_dogs[$random]["url"],
+    ];
+    if (!in_array($new_dog, $alternatives)) {
+        $alternatives[] = $new_dog;
+    }
+
+     $i++;
 }
 
+$imageofdog = $alternatives[array_rand($alternatives, 1)];
 
-$randomDogFromArray = array_rand($alternativesOfDogs);
-$rightanswere = "images/" . $alternativesOfDogs[$randomDogFromArray]["name"];
+$dogname = [];
+foreach($alternatives as $dog) {
+    $dogname[] = [
+        "correct" => check_answer( $imageofdog,$dog["name"]),
+        "name" => $dog["name"],
+    ];
+}
 
-//Fix the name in the alternatives
 $alt = [
-    "image" => $rightanswere,
-    "alternatives" => $alternativesOfDogs,
+    "image" => "images/" . $imageofdog["url"],
+    "alternatives" => $dogname,
 ];
 
+ function check_answer($imageofdog, $dog){
+    if (str_contains($imageofdog["name"], $dog)) {
+        return true;
+    } else {
+        return false;
+    }
+    };
 
-$dogs = json_encode($alt);
 sendJSON($alt);
-
 
 
 ?>

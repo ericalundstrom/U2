@@ -1,17 +1,17 @@
 [
     {
+        "username": "erica",
+        "password": "erica",
+        "points": 7
+    },
+    {
+        "username": "hej",
+        "password": "hej",
+        "points": 0
+    },
+    {
         "username": "redbull",
         "password": "lo",
-        "points": 6
-    },
-    {
-        "username": "redbullhej",
-        "password": "lo",
-        "points": 1
-    },
-    {
-        "username": "lolo",
-        "password": "lolo",
-        "points": 3
+        "points": 0
     }
 ]

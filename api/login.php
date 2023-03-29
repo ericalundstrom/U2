@@ -19,19 +19,8 @@ $method = $_SERVER["REQUEST_METHOD"];
 
 if ($method == "POST") {
 
-    // $pointsfile = "points.json";
-    // $data_points = ["points" => 0];
-
-    // if (!file_exists($pointsfile)) {
-    //     file_put_contents($pointsfile, $data_points);
-    // }else{
-    //     $points_content = file_get_contents($pointsfile);
-    //     $points = json_decode($points_content, true);
-    // }
-
     $username = $requestDATA["username"];
     $password = $requestDATA["password"];
-
 
     foreach($users as $user){
 
