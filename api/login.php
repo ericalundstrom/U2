@@ -33,7 +33,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     $message = ["message" => "Not found!"];
     sendJSON($message, 404);
-    }
-
+    
+}
+$message = ["message" => "Wrong kind of Request Method."];
+sendJSON($message, 404);
+    
 
 ?>
