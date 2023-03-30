@@ -1,47 +1,39 @@
-<?php
 
-ini_set("dispaly_errors", 1);
+<?php 
+ini_set("display_errors", 1);
 
 require_once "function.php";
 
+$userDatabase = "users.json";
 
-$filename = "users.json";
-$users = [];
-$user_json = file_get_contents($filename);
-$users = json_decode($user_json, true);
+$users = json_decode(file_get_contents($userDatabase), true);
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-$requestJSON = file_get_contents("php://input");
-$requestDATA = json_decode($requestJSON, true);
-
-
-$method = $_SERVER["REQUEST_METHOD"];
-
-if ($method == "POST") {
+    $requestDATA = json_decode(file_get_contents("php://input"), true);
 
     $username = $requestDATA["username"];
     $password = $requestDATA["password"];
 
     foreach($users as $user){
-
-        if ($user["username"] == $username && $user["password"] == $password) {
+        if ($user["username"] == $username && $user["password"] == $password ) {
 
             $points = $user["points"];
-
             $loggedInUser = [
                 "username" => $username,
                 "password" => $password,
-                "points" => $points,
+                "points" => $points
             ];
 
             $users[] = $loggedInUser;
-            $json = json_encode($users, JSON_PRETTY_PRINT);
+            $user_json = json_encode($users, JSON_PRETTY_PRINT);
             sendJSON($loggedInUser);
+
         }
-       
     }
-  
-}
+    $message = ["message" => "Not found!"];
+    sendJSON($message, 404);
+    }
 
 
 ?>

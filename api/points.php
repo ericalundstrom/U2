@@ -24,28 +24,38 @@ if ($method == "POST") {
 
         if ($databaseOfUsers[$i]["username"] == $username) {
             $databaseOfUsers[$i]["points"] = $databaseOfUsers[$i]["points"] + $requestDATA["points"];
-            $newpoints = 
             file_put_contents($filename, json_encode($databaseOfUsers, JSON_PRETTY_PRINT));
             sendJSON(["points" => $databaseOfUsers[$i]["points"]]);
         }
     }
 }
+    
 
 if ($method == "GET") {
-
-    $highestScore = [];
-    foreach($databaseOfUsers as $user){
-        $usernameAndPassword = [
+    
+    function cmp($a, $b) {
+        if ($a["points"] == $b["points"]) {
+            return 0;
+        }
+        return ($a["points"] > $b["points"]) ? -1 : 1;
+    }
+    
+    usort($databaseOfUsers, "cmp");
+ 
+    $firstFive = array_slice($databaseOfUsers, 0, 5);
+    
+    $usernamdeAndPoints = [];
+    foreach($firstFive as $user){
+        $oneUser = [
             "username" => $user["username"],
             "points" => $user["points"],
         ];
-        $highestScore[] = $usernameAndPassword;
+        $usernamdeAndPoints[] = $oneUser;
     };
-
-    sort($highestScore);
-    sendJSON($highestScore);
-}
     
-$error = ["error" => "Can't load points"];
-sendJSON($error, 400);
+    sendJSON($usernamdeAndPoints);
+}
+
+$message = ["message" => "Can't load points"];
+sendJSON($message, 400);
 ?>

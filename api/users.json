@@ -7,7 +7,7 @@
     {
         "username": "hej",
         "password": "hej",
-        "points": 3
+        "points": 7
     },
     {
         "username": "redbull",
@@ -18,5 +18,30 @@
         "username": "lolo",
         "password": "lolo",
         "points": 11
+    },
+    {
+        "username": "hejd\u00e5",
+        "password": "hejd\u00e5",
+        "points": 0
+    },
+    {
+        "username": "hejda",
+        "password": "hejda",
+        "points": 1
+    },
+    {
+        "username": "thea",
+        "password": "thea",
+        "points": 2
+    },
+    {
+        "username": "hejhopp",
+        "password": "hejsan",
+        "points": 3
+    },
+    {
+        "username": "Ankan",
+        "password": "123",
+        "points": 4
     }
 ]

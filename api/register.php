@@ -40,14 +40,14 @@ if ($method == "POST") {
 
     foreach ($users as $user) {
         if ($user["username"] == $username) {
-            $error = ["error" => "Conflict; (The username is already taken)"];
-            sendJSON($error, 409);
+            $message = ["message" => "Conflict; (The username is already taken)"];
+            sendJSON($message, 409);
         }
     }
 
     if ($password == "" or $username == "") {
-        $error = ["error" => "wrong username or password"];
-        sendJSON($error, 400);
+        $message = ["message" => "wrong username or password"];
+        sendJSON($message, 400);
     }
 
     $newUser = [
