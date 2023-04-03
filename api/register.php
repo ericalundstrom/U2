@@ -4,19 +4,7 @@ ini_set("display_errors", 1);
 
 require_once "function.php";
 
-
 $method = $_SERVER["REQUEST_METHOD"];
-
-if ($method == "OPTIONS"){
-    header("Access-Control-Allow-Origin: ");
-    header("Access-Control-Allow-Methods:");
-    header("Access-Control-Allow-Headers: ");
-    exit();
-
-} else {
-    header("Access-Control-Allow-Origin:");
-}
-
 
 $filename = "users.json";
 $users = [];
@@ -46,8 +34,8 @@ if ($method == "POST") {
     }
 
     if ($password == "" or $username == "") {
-        $message = ["message" => "wrong username or password"];
-        sendJSON($message, 400);
+        $message = ["message" => "Please type an username and a password"];
+        sendJSON($message, 404);
     }
 
     $newUser = [
@@ -63,5 +51,6 @@ if ($method == "POST") {
     sendJSON($newUser);
 
 }
-
+$message = ["message" => "Wrong kind of Request Method."];
+sendJSON($message, 400);
 ?>
