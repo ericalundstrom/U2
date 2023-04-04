@@ -4,28 +4,19 @@ require_once("function.php");
 
 $method = $_SERVER["REQUEST_METHOD"];
 
-// $contentType = $_SERVER["CONTENT_TYPE"];
-
-// if ($contentType == "application/json") {
-//     $message = ["message" => "Wrong kind of Request Method."];
-//     sendJSON($message, 404);
-// }
-
-
 if ($method == "GET") {
 
-    
     $filename = '../images/';
-    $direction = scandir($filename);
+    $originalArrayOfDogs = scandir($filename);
     $dogs_json = "dogs.json";
 
-    if (!file_exists($dogs_json)) {
-        $message = ["message" => "$dogs_json does not exist."];
+    if (count($originalArrayOfDogs) == 0) {
+        $message = ["message" => "No images available"];
         sendJSON($message, 404);
     }
     
     $array_of_all_the_dogs = [];
-    foreach($direction as $dog){
+    foreach($originalArrayOfDogs as $dog){
         $dogsName = $dog;
         $replaceWords = [ "_", ".jpg"];
         $newName = str_replace($replaceWords, " ", $dogsName);
@@ -53,7 +44,7 @@ if ($method == "GET") {
         if (!in_array($new_dog, $alternatives)) {
             $alternatives[] = $new_dog;
         }
-            $i++;
+        $i++;
     }
     
     $imageOfdog = $alternatives[array_rand($alternatives, 1)];
@@ -75,7 +66,8 @@ if ($method == "GET") {
     
 }    
 
-
+$message = ["message" => "Wrong kind of Request Method."];
+sendJSON($message, 400);
 
 
 function check_answer($imageOfdog, $dog){
@@ -86,7 +78,4 @@ function check_answer($imageOfdog, $dog){
    }
    };
 
-
-$message = ["message" => "Wrong kind of Request Method."];
-sendJSON($message, 400);
 ?>

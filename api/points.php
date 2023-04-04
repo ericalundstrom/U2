@@ -9,7 +9,7 @@ $method = $_SERVER["REQUEST_METHOD"];
 $filename = "users.json";
 
 if (!file_exists($filename)) {
-    $message = ["message" => "$filename does not exist. Can't load points."];
+    $message = ["message" => "$filename does not exist. Can't load points"];
     sendJSON($message, 404);
 }
 
@@ -42,6 +42,8 @@ if ($method == "POST") {
             sendJSON(["points" => $databaseOfUsers[$i]["points"]]);
         }
     }
+    $message = ["message" => "Could not find user"];
+    sendJSON($message, 404);
 }
     
 

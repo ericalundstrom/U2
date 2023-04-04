@@ -15,13 +15,6 @@ $requestJSON = file_get_contents("php://input");
 $requestDATA = json_decode($requestJSON, true);
 
 if ($method == "POST") {
-    
-    if (!file_exists($filename)) {
-        $json = file_put_contents($filename, $users);
-    }else{
-        $json = file_get_contents($filename);
-        $data = json_decode($json, true);
-    }
 
     $username = $requestDATA["username"];
     $password = $requestDATA["password"];
