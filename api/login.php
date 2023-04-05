@@ -6,7 +6,13 @@ require_once "function.php";
 
 $userDatabase = "users.json";
 
+if (!file_exists($userDatabase)) {
+    $message = ["message" => "The file 'users.json' was not found"];
+    sendJSON($message, 404);
+}
+
 $users = json_decode(file_get_contents($userDatabase), true);
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 

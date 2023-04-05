@@ -6,11 +6,6 @@ require_once "function.php";
 
 $filename = "users.json";
 
-if (!file_exists($filename)) {
-    $message = ["message" => "$filename does not exist. Can't load points"];
-    sendJSON($message, 404);
-}
-
 $requestJSON = file_get_contents("php://input");
 $requestDATA = json_decode($requestJSON, true);
 
