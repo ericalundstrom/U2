@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 $message = ["message" => "Wrong kind of Request Method."];
-sendJSON($message, 400);
+sendJSON($message, 405);
     
 
 ?>

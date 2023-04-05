@@ -4,8 +4,6 @@ ini_set("dispaly_errors", 1);
 
 require_once "function.php";
 
-
-$method = $_SERVER["REQUEST_METHOD"];
 $filename = "users.json";
 
 if (!file_exists($filename)) {
@@ -39,7 +37,8 @@ if ($method == "POST") {
         if ($databaseOfUsers[$i]["username"] == $username) {
             $databaseOfUsers[$i]["points"] = $databaseOfUsers[$i]["points"] + $requestDATA["points"];
             file_put_contents($filename, json_encode($databaseOfUsers, JSON_PRETTY_PRINT));
-            sendJSON(["points" => $databaseOfUsers[$i]["points"]]);
+            $points = ["points" => $databaseOfUsers[$i]["points"]];
+            sendJSON($points);
         }
     }
     $message = ["message" => "Could not find user"];

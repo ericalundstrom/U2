@@ -2,7 +2,7 @@
     {
         "username": "erica",
         "password": "erica",
-        "points": 18
+        "points": 22
     },
     {
         "username": "hej",
@@ -53,5 +53,10 @@
         "username": "korall",
         "password": "korall",
         "points": 4
+    },
+    {
+        "username": "gerger",
+        "password": "grgrereg",
+        "points": 3
     }
 ]

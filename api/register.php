@@ -28,7 +28,7 @@ if ($method == "POST") {
 
     if ($password == "" or $username == "") {
         $message = ["message" => "Please type an username and a password"];
-        sendJSON($message, 404);
+        sendJSON($message, 400);
     }
 
     $newUser = [
@@ -44,6 +44,8 @@ if ($method == "POST") {
     sendJSON($newUser);
 
 }
+
 $message = ["message" => "Wrong kind of Request Method."];
-sendJSON($message, 400);
+sendJSON($message, 405);
+
 ?>

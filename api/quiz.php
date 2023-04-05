@@ -52,7 +52,7 @@ if ($method == "GET") {
     $fourDogs = [];
     foreach($alternatives as $dog) {
         $fourDogs[] = [
-            "correct" => check_answer( $imageOfdog,$dog["name"]),
+            "correct" => check_answer($imageOfdog,$dog["name"]),
             "name" => $dog["name"],
         ];
     }
@@ -67,7 +67,7 @@ if ($method == "GET") {
 }    
 
 $message = ["message" => "Wrong kind of Request Method."];
-sendJSON($message, 400);
+sendJSON($message, 405);
 
 
 function check_answer($imageOfdog, $dog){
