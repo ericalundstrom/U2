@@ -8,8 +8,13 @@ $method = $_SERVER["REQUEST_METHOD"];
 
 $filename = "users.json";
 $users = [];
-$user_json = file_get_contents($filename);
-$users = json_decode($user_json, true);
+
+if (!file_exists($filename)) {
+    file_put_contents($filename, $users);
+}else{
+    $user_json = file_get_contents($filename);
+    $users = json_decode($user_json, true);
+};
 
 $requestJSON = file_get_contents("php://input");
 $requestDATA = json_decode($requestJSON, true);
